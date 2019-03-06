@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="/templates/base.xhtml">
+
+	<ui:define name="title">
+		#{txtMain.details}
+	</ui:define>
+	
+	<ui:define name="content">
+		<div class="row">
+		<div class="col-lg-12">
+			<p:messages id="messages" showDetail="true" closable="true">
+        		<p:autoUpdate />
+    		</p:messages>
+
+            <div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						#{txtInvObject.invObject}
+					</h3> 
+				</div>    
+				<div class="panel-body">
+					<div class="panel panel-green">
+					    <div class="panel-heading" role="tab" id="headingDetails">
+					      <h5 class="panel-title">
+					        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+					          #{txtMain.details}
+					        </a>
+					      </h5>
+					    </div>
+					    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingDetails">
+					      <div class="panel-body">
+					      	<div class="row">
+					      		<h:form>
+									<div class="col-lg-5">
+											<div class="form-group">
+												<h:outputLabel for="invObjectName">#{txtInvObject.nameInvObject}</h:outputLabel>
+												<h:inputText 
+													value="#{invObjectDetailsBB.name}"
+													disabled="true"
+									      			class = "form-control"
+									      			id="invObjectName">
+												</h:inputText>
+											</div>
+											<div class="form-group">
+												<h:outputLabel for="inventoryNo">#{txtInvObject.inventoryNo}</h:outputLabel>
+												<h:inputText 
+													value="#{invObjectDetailsBB.inventoryNo}"
+									   				disabled="true"
+									      			class = "form-control"
+									      			id="inventoryNo">
+												</h:inputText>
+											</div>
+											<div class="form-group">
+												<h:outputLabel for="serialNo">#{txtInvObject.serialNo}</h:outputLabel>
+												<h:inputText
+													value="#{invObjectDetailsBB.serialNo}"
+													disabled="true"
+									      			class = "form-control"
+									      			id="serialNo">
+									      		</h:inputText>
+											</div>
+											<div class="form-group">
+												<h:outputLabel for="quantity">#{txtInvObject.quantity}</h:outputLabel>
+												<h:inputText
+													value="#{invObjectDetailsBB.quantity}"
+													disabled="true"
+									      			class = "form-control"
+									      			id="quantity">
+									      		</h:inputText>
+											</div>
+											<div class="form-group">
+												<h:outputLabel for="purchaseDate">#{txtInvObject.purchaseDate}</h:outputLabel>
+												<h:inputText
+													value="#{invObjectDetailsBB.purchaseDate}"
+													disabled="true"
+									      			class = "form-control"
+									      			id="purchaseDate">
+									      		</h:inputText>
+											</div>
+											<div class="form-group">
+												<h:outputLabel for="toDate">#{txtInvObject.expirationDate}</h:outputLabel>
+												<h:inputText
+													value="#{invObjectDetailsBB.toDate}"
+													disabled="true"
+									      			class = "form-control"
+									      			id="toDate">
+									      		</h:inputText>
+											</div>
+									</div>
+									<div class = "col-lg-5">
+											<div class="form-group">
+												<h:outputLabel for="room">#{txtInvObject.room}</h:outputLabel>
+												<h:inputText
+													value="#{invObjectDetailsBB.idRoom}"
+													disabled="true"
+									      			class = "form-control"
+									      			id="room">
+									      		</h:inputText>
+											</div>
+											<div class="form-group">
+												<h:outputLabel for="personResponsible">#{txtInvObject.personResponsible}</h:outputLabel>
+												<h:inputText
+													value="#{invObjectDetailsBB.idPersonResponsible}"
+													disabled="true"
+									      			class = "form-control"
+									      			id="personResponsible">
+									      		</h:inputText>
+											</div>
+											<div class="form-group">
+												<h:outputLabel for="group">#{txtInvObject.category}</h:outputLabel>
+												<h:inputText
+													value="#{invObjectDetailsBB.idGroup}"
+													disabled="true"
+									      			class = "form-control"
+									      			id="group">
+									      		</h:inputText>
+											</div>
+											<div class="form-group">
+												<h:outputLabel for="invObjectDescription">#{txtMain.description}</h:outputLabel>
+												<h:inputTextarea 
+													value="#{invObjectDetailsBB.description}"
+													disabled="true"
+													class="form-control"
+													rows="9"
+									      			id="invObjectDescription">
+												</h:inputTextarea>
+											</div>
+									</div>
+								</h:form>
+		                    </div>
+					      </div>
+					    </div>
+					 </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</ui:define>
+	
+	
+
+</ui:composition>
+</html>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="/templates/base.xhtml">
+
+	<ui:define name="title">
+		#{txtUser.titleNew} 
+	</ui:define>
+	
+	<ui:define name="content">
+		<div class="row">
+		<div class="col-lg-6">
+            <div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						#{txtUser.titleNew} 
+					</h3>          
+				</div>
+                        
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-lg-10">
+							<h:form>
+								<div class="form-group">
+									<h:outputLabel for="name">#{txtUser.name}</h:outputLabel>
+									<h:inputText 
+										a:placeholder="#{txtUser.name}" value="#{userEditBB.name}"
+						   				a:required="true"
+						      			class = "form-control"
+						      			id="name">
+									</h:inputText>
+								</div>
+								<div class="form-group">
+									<h:outputLabel for="surname">#{txtUser.surname}</h:outputLabel>
+									<h:inputText 
+										a:placeholder="#{txtUser.surname}" value="#{userEditBB.surname}"
+						   				a:required="true"
+						      			class = "form-control"
+						      			id="surname">
+									</h:inputText>
+								</div>
+								<div class="form-group">
+									<h:outputLabel for="email">#{txtUser.email}</h:outputLabel>
+									<h:inputText 
+										a:placeholder="#{txtUser.email}" value="#{userEditBB.email}"
+						   				a:required="true"
+						      			class = "form-control"
+						      			id="email">
+									</h:inputText>
+								</div>
+								<div class="form-group">
+									<h:outputLabel for="institutionName">#{txtUser.institutionName}</h:outputLabel>
+									<h:selectOneMenu value="#{userEditBB.idInstitution}" a:required = "true" styleClass="form-control" id="institutionName">
+									    <f:selectItems value="#{userEditBB.institutionNames}" 
+									    				var="institution" 
+									    				itemValue="#{institution.idInstitution}" 
+									    				itemLabel="#{institution.nameInstitution}" />
+									</h:selectOneMenu>
+								</div>
+								<h:commandButton value="#{txtMain.add}" action="#{userEditBB.saveData()}" 
+								styleClass = "btn btn-default" update="@form"/>
+							</h:form>
+						</div>
+                    </div>
+				</div>
+				<div>
+					<p:messages id="messages" showDetail="true" closable="true">
+		        		<p:autoUpdate />
+		    		</p:messages>
+				</div>
+			</div>
+		</div>
+	</div>
+	</ui:define>
+	
+	
+
+</ui:composition>
+</html>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="/templates/base.xhtml">
+
+	<ui:define name="title">
+		#{txtInvObject.invObjectNew} 
+	</ui:define>
+	
+	<ui:define name="content">
+		<div class="row">
+		<div class="col-lg-12">
+			<p:messages id="messages" showDetail="true" closable="true">
+        		<p:autoUpdate />
+    		</p:messages>
+            <div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						#{txtInvObject.invObjectNew}
+					</h3> 
+				</div>
+                        
+				<div class="panel-body">
+					<div class="row">
+						<h:form>
+							<div class="col-lg-5">
+								<div class="form-group">
+									<h:outputLabel for="nameInvObject">#{txtInvObject.nameInvObject}</h:outputLabel>
+									<h:inputText 
+										a:placeholder="#{txtInvObject.nameInvObject}" value="#{invObjectEditBB.name}"
+						   				a:required="true"
+						      			class = "form-control"
+						      			id="nameInvObject">
+									</h:inputText>
+								</div>
+								<div class="form-group">
+									<h:outputLabel for="inventoryNo">#{txtInvObject.inventoryNo}</h:outputLabel>
+									<h:inputText 
+										a:placeholder="#{txtInvObject.inventoryNo}" value="#{invObjectEditBB.inventoryNo}"
+						   				a:required="true"
+						      			class = "form-control"
+						      			id="inventoryNo">
+									</h:inputText>
+								</div>
+								<div class="form-group">
+									<h:outputLabel for="serialNo">#{txtInvObject.serialNo}</h:outputLabel>
+									<h:inputText 
+										a:placeholder="#{txtInvObject.serialNo}" value="#{invObjectEditBB.serialNo}"
+						   				a:required="true"
+						      			class = "form-control"
+						      			id="serialNo">
+									</h:inputText>
+								</div>
+								<div class="form-group">
+									<h:outputLabel for="quantity">#{txtInvObject.quantity}</h:outputLabel>
+									<h:inputText 
+										a:placeholder="#{txtInvObject.quantity}" value="#{invObjectEditBB.quantity}"
+						   				a:required="true"
+						      			class = "form-control"
+						      			id="quantity">
+									</h:inputText>
+								</div>
+								<div class="form-group">
+									<h:outputLabel for="purchaseDate">#{txtInvObject.purchaseDate}</h:outputLabel>
+									<br/>
+									<p:calendar id="purchaseDate" value="#{invObjectEditBB.purchaseDate}" inputStyleClass="form-control"/>
+								</div>
+								<div class="form-group">
+									<h:outputLabel for="toDate">#{txtInvObject.expirationDate}</h:outputLabel>
+									<br/>
+									<p:calendar id="toDate" value="#{invObjectEditBB.toDate}" inputStyleClass="form-control"/>
+								</div>
+								<h:commandButton value="#{txtMain.add}" action="#{invObjectEditBB.saveData()}" 
+								styleClass = "btn btn-primary" update="@form"/>
+							</div>
+							<div class="col-lg-5">
+								<div class="form-group">
+									<h:outputLabel for="roomNumber">#{txtInvObject.room}</h:outputLabel>
+									<h:selectOneMenu value="#{invObjectEditBB.idRoom}" styleClass="form-control" id="roomNumber" required="true">
+									    <f:selectItems value="#{invObjectEditBB.roomNumbers}" 
+									    				var="room" 
+									    				itemValue="#{room.idRoom}" 
+									    				itemLabel="#{room.number}" />
+									    <f:ajax listener="#{invObjectEditBB.changeRoom}" render="personResponsible" />
+									</h:selectOneMenu>
+								</div>
+								<div class="form-group">
+									<h:outputLabel for="personResponsible">#{txtInvObject.personResponsible}</h:outputLabel>
+									<h:selectOneMenu value="#{invObjectEditBB.idPersonResponsible}" styleClass="form-control" id="personResponsible"
+														required="true" requiredMessage="Wybierz osobę odpowiedzialną">
+									    <f:selectItems value="#{invObjectEditBB.personResponsibleNames}" 
+									    				var="personResponsible" 
+									    				itemValue="#{personResponsible.idPersonResponsible}" 
+									    				itemLabel="#{personResponsible.name.concat(' ').concat(personResponsible.surname)}" />
+									</h:selectOneMenu>
+								</div>
+								<div class="form-group">
+									<h:outputLabel for="group">#{txtInvObject.category}</h:outputLabel>
+									<h:selectOneMenu value="#{invObjectEditBB.idGroup}" styleClass="form-control" id="group"
+														required="true" requiredMessage="Wybierz kategorię">
+									    <f:selectItems value="#{invObjectEditBB.groupCategoryNames}" 
+									    				var="group" 
+									    				itemValue="#{group.idGroup}" 
+									    				itemLabel="#{group.category}" />
+									</h:selectOneMenu>
+								</div>
+								<div class="form-group">
+									<h:outputLabel for="invObjectDescription">#{txtMain.description}</h:outputLabel>
+									<h:inputTextarea 
+										a:placeholder="#{txtMain.description}" value="#{invObjectEditBB.description}"
+										rows="10"
+						      			class = "form-control"
+						      			id="invObjectDescription">
+									</h:inputTextarea>
+								</div>
+							</div>
+							</h:form>
+						</div>
+                    </div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+	
+	
+
+</ui:composition>
+</html>

@@ -1,0 +1,114 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:form rendered="#{remoteClient.isSuperAdmin()}">
+		<ul class="nav" id="side-menu">
+			<li>
+				<h:link><i class="fa fa-fw fa-institution"></i>#{txtNav.institution}<span class="fa arrow"></span></h:link>
+				<ul class="nav nav-second-level">
+					<li>
+						<h:link outcome="/pages/admin/institution/institutionList?faces-redirect=true">#{txtNav.institutionList}</h:link>
+					</li>
+					<li>
+						<h:commandLink action="#{institutionListBB.newInstitution()}">#{txtNav.institutionAdd}</h:commandLink>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<h:link><i class="fa fa-fw fa-users"></i>#{txtNav.user}<span class="fa arrow"></span></h:link>
+				<ul class="nav nav-second-level">
+					<li>
+						<h:link outcome="/pages/admin/users/userList?faces-redirect=true">#{txtNav.userList}</h:link>
+					</li>
+					<li>
+						<h:commandLink action="#{userListBB.newUser()}">#{txtNav.userAdd}</h:commandLink>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<h:link><i class="fa fa-fw fa-unlock"></i>#{txtNav.role}<span class="fa arrow"></span></h:link>
+				<ul class="nav nav-second-level">
+					<li> <h:link outcome="/pages/admin/roles/roleList?faces-redirect=true">#{txtNav.roleList}</h:link> </li>
+					<li> <h:commandLink action="#{roleListBB.newRole()}">#{txtNav.roleAdd}</h:commandLink> </li>
+				</ul>
+			</li>
+		</ul>
+	</h:form>
+	
+	<h:form rendered="#{remoteClient.isInstitutionAdmin()}">
+		<ul class="nav" id="side-menu1">
+			<li>
+				<h:link><i class="fa fa-fw fa-building"></i>#{txtNav.department}<span class="fa arrow"></span></h:link>
+				<ul class="nav nav-second-level">
+					<li>
+						<h:link outcome="/pages/institution_admin/department/departmentList?faces-redirect=true">#{txtNav.departmentList}</h:link>
+					</li>
+					<li>
+						<h:commandLink action="#{departmentListBB.newDepartment()}">#{txtNav.departmentAdd}</h:commandLink>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<h:link><i class="fa fa-fw fa-sitemap"></i>#{txtNav.room}<span class="fa arrow"></span></h:link>
+				<ul class="nav nav-second-level">
+					<li>
+						<h:link outcome="/pages/institution_admin/room/roomList?faces-redirect=true">#{txtNav.roomList}</h:link>
+					</li>
+					<li>
+						<h:commandLink action="#{roomListBB.newRoom()}">
+							<f:setPropertyActionListener target="#{roomListBB.institution}" value="#{remoteClient.details.institution}" />
+							#{txtNav.roomAdd}
+						</h:commandLink>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<h:link><i class="fa fa-fw fa-user"></i>#{txtNav.employee}<span class="fa arrow"></span></h:link>
+				<ul class="nav nav-second-level">
+					<li>
+						<h:link outcome="/pages/institution_admin/user/userList?faces-redirect=true">#{txtNav.employeeList}</h:link>
+					</li>
+					<li>
+						<h:commandLink action="#{workerListBB.newUser()}">#{txtNav.employeeAdd}</h:commandLink>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<h:link><i class="fa fa-fw fa-lock"></i>#{txtNav.personResponsible}<span class="fa arrow"></span></h:link>
+				<ul class="nav nav-second-level">
+					<li>
+						<h:link outcome="/pages/institution_admin/person/personList?faces-redirect=true">#{txtNav.personResponsibleList}</h:link>
+					</li>
+					<li>
+						<h:commandLink action="#{personListBB.newPerson()}">
+							<f:setPropertyActionListener target="#{personListBB.institution}" value="#{remoteClient.details.institution}" />
+							#{txtNav.personResponsibleAdd}
+						</h:commandLink>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</h:form>
+	<h:form rendered="#{remoteClient.isUser()}">
+		<ul class="nav" id="side-menu2">
+			<li>
+				<h:link><i class="fa fa-fw fa-sitemap"></i>#{txtNav.group}<span class="fa arrow"></span></h:link>
+				<ul class="nav nav-second-level">
+					<li> <h:link outcome="/pages/user/group/groupList?faces-redirect=true">#{txtNav.groupList}</h:link> </li>
+					<li> <h:commandLink action="#{groupListBB.newGroup()}">#{txtNav.groupAdd}</h:commandLink> </li>
+				</ul>
+			</li>
+			<li>
+				<h:link><i class="fa fa-fw fa-database"></i>#{txtNav.invObject}<span class="fa arrow"></span></h:link>
+				<ul class="nav nav-second-level">
+					<li> <h:link outcome="/pages/user/invObject/invObjectList?faces-redirect=true">#{txtNav.invObjectList}</h:link> </li>
+					<li> <h:commandLink action="#{invObjectListBB.newInvObject()}">#{txtNav.invObjectAdd}</h:commandLink> </li>
+				</ul>
+			</li>
+		</ul>
+	</h:form>
+
+</ui:composition>

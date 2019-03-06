@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition template="/templates/base.xhtml">
+
+	<ui:define name="title">
+		#{txtRoom.roomDetails} 
+	</ui:define>
+	
+	<ui:define name="content">
+		<div class="row">
+		<div class="col-lg-12">
+			<p:messages id="messages" showDetail="true" closable="true">
+        		<p:autoUpdate />
+    		</p:messages>
+
+            <div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						#{txtRoom.room}
+					</h3> 
+				</div>    
+				<div class="panel-body">
+					<div class="panel panel-green">
+					    <div class="panel-heading" role="tab" id="headingDetails">
+					      <h5 class="panel-title">
+					        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+					          #{txtMain.details} 
+					        </a>
+					      </h5>
+					    </div>
+					    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingDetails">
+					      <div class="panel-body">
+					      	<div class="row">
+					      		<h:form>
+									<div class="col-lg-6">
+											<div class="form-group">
+												<h:outputLabel for="roomNumber">#{txtRoom.roomNumber}</h:outputLabel>
+												<h:inputText 
+													value="#{roomDetailsBB.roomNumber}"
+													disabled="true"
+									      			class = "form-control"
+									      			id="roomNumber">
+												</h:inputText>
+											</div>
+											<div class="form-group">
+												<h:outputLabel for="floor">#{txtRoom.floor}</h:outputLabel>
+												<h:inputText 
+													value="#{roomDetailsBB.floor}"
+									   				disabled="true"
+									      			class = "form-control"
+									      			id="floor">
+												</h:inputText>
+											</div>
+											<div class="form-group">
+												<h:outputLabel for="departmentName">#{txtDepartment.department}</h:outputLabel>
+												<h:inputText
+													value="#{roomDetailsBB.department.nameDepartment}"
+													disabled="true"
+									      			class = "form-control"
+									      			id="departmentName">
+									      		</h:inputText>
+											</div>
+									</div>
+									<div class = "col-lg-5">
+											<div class="form-group">
+												<h:outputLabel for="roomDescription">#{txtRoom.roomDescription}</h:outputLabel>
+												<h:inputTextarea 
+													value="#{roomDetailsBB.description}"
+													disabled="true"
+													class="form-control"
+													rows="9"
+									      			id="roomDescription">
+												</h:inputTextarea>
+											</div>
+									</div>
+								</h:form>
+		                    </div>
+					      </div>
+					    </div>
+					 </div>
+					 
+					 <div class="panel panel-red">
+					    <div class="panel-heading" role="tab" id="personResponsibleDetails">
+					      <h4 class="panel-title">
+					        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+					          #{txtDepartment.personResponsible} 
+					        </a>
+					      </h4>
+					    </div>
+					    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="personResponsibleDetails">
+					      <div class="panel-body">
+								<h:form id="form-table">
+			                        <p:dataTable value="#{roomDetailsBB.roomPerson}" var="personResponsible" rows="5"
+			                        	tableStyle="table-layout: auto;"
+                        				paginator="true" rowsPerPageTemplate="5,10,15"
+                        				lazy="true"
+										paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+										<f:facet name="header">
+								            <p:outputPanel>
+								            	<p:commandButton value="#{txtRoom.addPerson}" action="#{roomDetailsBB.newRoomPerson()}" styleClass = "btn btn-primary" update="form-table"/>
+								            </p:outputPanel>
+								        </f:facet>
+								        <p:column headerText="#{txtUser.name}">
+											<h:outputText value="#{personResponsible.personresponsible.name}"/>
+										</p:column>
+								        <p:column headerText="#{txtUser.surname}">
+											<h:outputText value="#{personResponsible.personresponsible.surname}"/>
+										</p:column>
+								        <p:column headerText="#{txtRoom.from}">
+											<h:outputText value="#{personResponsible.fromDate}"/>
+										</p:column>
+								        <p:column headerText="#{txtRoom.to}">
+											<h:outputText value="#{personResponsible.toDate}"/>
+										</p:column>
+								        <p:column headerText="#{txtMain.option}">
+								        	<div class="btn-group">
+											<p:commandButton styleClass="btn btn-warning btn-sm" value="#{txtMain.edit}" 
+																action="#{roomDetailsBB.editRoomPerson(personResponsible)}"
+			                            						update="@form"/>
+											</div>
+								        	<div class="btn-group">
+											<p:commandButton styleClass="btn btn-danger btn-sm" value="#{txtMain.delete}" 
+																action="#{roomDetailsBB.deleteRoomPerson(personResponsible)}"
+			                            						update="@form"/>
+											</div>
+										</p:column>
+									</p:dataTable>
+								</h:form>
+					      </div>
+					    </div>
+					 </div>
+					 <div class="panel panel-yellow">
+					    <div class="panel-heading" role="tab" id="invObjectRoom">
+					      <h4 class="panel-title">
+					        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+					          #{txtInvObject.invObjects} 
+					        </a>
+					      </h4>
+					    </div>
+					    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="invObjectRoom">
+					      <div class="panel-body">
+								<h:form id="form-table-invObject">
+			                        <p:dataTable  var="invObject"  value="#{roomDetailsBB.invObjectRoom}" rows="5"
+		                        				paginator="true" rowsPerPageTemplate="5,10,15"
+												lazy="true"
+												paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+									<f:facet name="header">
+										<p:outputPanel>
+											<p:inputText value="#{roomDetailsBB.nameInvObject}"
+												placeholder="#{txtInvObject.name}" />
+											<p:commandButton value="#{txtMain.search}" styleClass="btn btn-primary"
+												update="form-table-invObject" />
+											<p:commandButton value="#{txtMain.active}" action="#{roomDetailsBB.displayUnarchive()}" 
+														rendered="#{roomDetailsBB.archive}"
+						            					 styleClass = "btn btn-primary left-button" update="form-table-invObject"/>
+						               	 	<p:commandButton value="#{txtMain.inactive}" action="#{roomDetailsBB.displayArchive()}" 
+						               	 				rendered="#{!roomDetailsBB.archive}"
+						                				styleClass = "btn btn-primary left-button" update="form-table-invObject"/>
+										</p:outputPanel>
+									</f:facet>
+									<p:column headerText="#{txtInvObject.name}">
+										<h:outputText value="#{invObject.name}"/>
+									</p:column>
+									<p:column headerText="#{txtInvObject.category}">
+										<h:outputText value="#{invObject.groups.category}"/>
+									</p:column>
+									<p:column headerText="#{txtInvObject.serialNo}">
+										<h:outputText value="#{invObject.serialNo}"/>
+									</p:column>
+									<p:column headerText="#{txtRoom.roomNumber}">
+										<h:outputText value="#{invObject.room.number}"/>
+									</p:column>
+									<p:column headerText="Status">
+										<h:outputText value="#{txtMain.inactive}" rendered="#{invObject.archive}"/>
+										<h:outputText value="#{txtMain.active}" rendered="#{!invObject.archive}"/>
+									</p:column>
+		 							<p:column headerText="#{txtMain.option}">
+										<div class="btn-group">
+										<p:commandButton styleClass="btn btn-primary btn-sm" value="#{txtMain.details}" 
+															action="#{invObjectListBB.detailsInvObject(invObject)}" 
+			                           						update="@form"/>
+										</div>
+										</p:column>
+									</p:dataTable>
+								</h:form>
+					      </div>
+					    </div>
+					 </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</ui:define>
+	
+	
+
+</ui:composition>
+</html>

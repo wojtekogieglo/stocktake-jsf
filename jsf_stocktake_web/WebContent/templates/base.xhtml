@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<f:view locale="#{facesContext.externalContext.requestLocale}">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title><ui:insert name="title">...</ui:insert></title>
+	<h:outputStylesheet name="vendor/bootstrap/css/bootstrap.min.css" library="template" />
+	<h:outputStylesheet name="vendor/metisMenu/metisMenu.min.css" library="template" />
+	<h:outputStylesheet name="dist/css/sb-admin-2.css" library="template" />
+	<h:outputStylesheet name="dist/css/style.css" library="template" />
+	<h:outputStylesheet name="vendor/morrisjs/morris.css" library="template" />
+	<h:outputStylesheet name="vendor/font-awesome/css/font-awesome.min.css" library="template" />
+</h:head>
+
+<h:body>
+	<ui:insert name="whole-page">
+	<div id="wrapper">
+		<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+			
+			<div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <h:link class="navbar-brand" outcome="/pages/index?faces-redirect=true">StockTake</h:link>
+            </div>
+            <h:form>
+				<ul class="nav navbar-top-links navbar-right">
+	                <li class="dropdown">
+	                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+	                        <i class="fa fa-fw fa-user"></i> <i class="fa fa-fw fa-caret-down"></i>
+	                    </a>
+	                    <ul class="dropdown-menu dropdown-user">
+	                        <li>
+	                        	<h:link outcome="/public/userProfile?faces-redirect=true">
+	                        		<i class="fa fa-user fa-fw"></i> #{txtNav.profile}
+	                        	</h:link>
+	                        </li>
+	                        <li><h:link outcome="/public/changePassword?faces-redirect=true"><i class="fa fa-gear fa-fw"></i> #{txtNav.changePassword}</h:link>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li><h:commandLink action="#{loginBB.doLogout()}"><i class="fa fa-sign-out fa-fw"></i>#{txtNav.logout}</h:commandLink></li>
+	                    </ul>
+	                </li>
+	            </ul>
+            </h:form>
+			<div class="navbar-default sidebar" role="navigation">
+               	<div class="sidebar-nav navbar-collapse">
+               		<ui:include src="/templates/snippet/nav-snippet.xhtml" />
+               	</div>
+			</div>
+		</nav>
+		
+		<div id="page-wrapper">
+			<div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header"></h1>
+                </div>
+            </div>
+            
+            <ui:insert name="content">
+            	
+            </ui:insert>
+		</div>
+	
+	</div>
+	</ui:insert>
+	<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+	<h:outputScript name="vendor/bootstrap/js/bootstrap.min.js" library="template" />
+	<h:outputScript name="vendor/metisMenu/metisMenu.min.js" library="template" />
+	<h:outputScript name="vendor/raphael/raphael.min.js" library="template" />
+	<h:outputScript name="vendor/morrisjs/morris.min.js" library="template" />
+	<h:outputScript name="data/morris-data.js" library="template" />
+	<h:outputScript name="dist/js/sb-admin-2.js" library="template" />
+</h:body>
+
+</f:view>
+
+</html>

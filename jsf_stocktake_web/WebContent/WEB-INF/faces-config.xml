@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+    version="2.2">
+<application>
+  <resource-bundle>
+   <base-name>resources.textLogin</base-name>
+   <var>txtLogin</var>
+  </resource-bundle>
+  <resource-bundle>
+   <base-name>resources.textNav</base-name>
+   <var>txtNav</var>
+  </resource-bundle>
+  <resource-bundle>
+   <base-name>resources.textMain</base-name>
+   <var>txtMain</var>
+  </resource-bundle>
+  <resource-bundle>
+   <base-name>resources.textInstitution</base-name>
+   <var>txtInstitution</var>
+  </resource-bundle>
+  <resource-bundle>
+   <base-name>resources.textUser</base-name>
+   <var>txtUser</var>
+  </resource-bundle>
+  <resource-bundle>
+   <base-name>resources.textDepartment</base-name>
+   <var>txtDepartment</var>
+  </resource-bundle>
+  <resource-bundle>
+   <base-name>resources.textRoom</base-name>
+   <var>txtRoom</var>
+  </resource-bundle>
+  <resource-bundle>
+   <base-name>resources.textPersonResponsible</base-name>
+   <var>txtPersonResponsible</var>
+  </resource-bundle>
+  <resource-bundle>
+   <base-name>resources.textGroup</base-name>
+   <var>txtGroup</var>
+  </resource-bundle>
+  <resource-bundle>
+   <base-name>resources.textInvObject</base-name>
+   <var>txtInvObject</var>
+  </resource-bundle>
+  <resource-bundle>
+   <base-name>resources.textPassword</base-name>
+   <var>txtPassword</var>
+  </resource-bundle>
+  <locale-config>
+   <default-locale>pl</default-locale>
+  </locale-config>
+ </application>
+</faces-config>

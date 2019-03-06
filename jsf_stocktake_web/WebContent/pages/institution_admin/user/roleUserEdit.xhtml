@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="/templates/base.xhtml">
+
+	<ui:define name="title">
+		#{txtUser.addRole} 
+	</ui:define>
+	
+	<ui:define name="content">
+		<div class="row">
+		<div class="col-lg-6">
+            <div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						#{txtUser.addRole}
+					</h3>         
+				</div>
+                        
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-lg-10">
+							<h:form>
+								<div class="form-group">
+									<h:outputLabel for="roleName">#{txtUser.roleName}</h:outputLabel>
+									<h:selectOneMenu disabled="#{remoteClient.isInstitutionAdmin() and not remoteClient.isSuperAdmin()}" 
+													value="#{userRoleEditBB.idRole}" styleClass="form-control" 
+													id="roleName">
+									    <f:selectItems value="#{userRoleEditBB.roleNames}" 
+									    				var="role" 
+									    				itemValue="#{role.idRole}" 
+									    				itemLabel="#{role.roleName}" />
+									</h:selectOneMenu>
+								</div>
+								<div class="form-group">
+									<p:outputLabel for="grantDate">#{txtUser.grantDate}</p:outputLabel>
+									<p:calendar id="grantDate" value="#{userRoleEditBB.grantDate}"/>
+								</div>
+								<div class="form-group">
+									<p:outputLabel for="expirationDate">#{txtUser.expirationDate}</p:outputLabel>
+									<p:calendar id="expirationDate" value="#{userRoleEditBB.expirationDate}"/>
+								</div>
+								<h:commandButton value="#{txtMain.add}" action="#{userRoleEditBB.saveData()}"
+										styleClass = "btn btn-default" update="@form"/>
+							</h:form>
+						</div>
+                    </div>
+				</div>
+				<div>
+					<p:messages id="messages" showDetail="true" closable="true">
+		        		<p:autoUpdate />
+		    		</p:messages>
+				</div>
+			</div>
+		</div>
+	</div>
+	</ui:define>
+	
+	
+
+</ui:composition>
+</html>

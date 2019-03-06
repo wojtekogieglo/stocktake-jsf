@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="/templates/base.xhtml">
+
+	<ui:define name="title">
+		#{txtMain.details} 
+	</ui:define>
+	
+	<ui:define name="content">
+		<div class="row">
+		<div class="col-lg-12">
+			<p:messages id="messages" showDetail="true" closable="true">
+        		<p:autoUpdate />
+    		</p:messages>
+
+            <div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						#{txtUser.role}
+					</h3> 
+				</div>    
+				<div class="panel-body">
+					<h:form id="form-table">
+						<p:dataTable var="roleUser" value="#{userRoleBB.fullList}" rows="5"
+										paginator="true" rowsPerPageTemplate="5,10,15"
+										tableStyle="table-layout: auto;"
+										paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+								<f:facet name="header">
+						            <p:outputPanel>
+						                <p:commandButton action="#{userRoleBB.newUserRole()}" value="#{txtUser.addRole}" styleClass = "btn btn-primary"/>
+						            </p:outputPanel>
+						        </f:facet>
+								<p:column headerText="#{txtUser.roleName}" >
+									<h:outputText value="#{roleUser.role.roleName}">
+								</h:outputText>
+								</p:column>
+								<p:column headerText="#{txtUser.grantDate}">
+									<h:outputText value="#{roleUser.grantDate}">
+								</h:outputText>
+								</p:column>
+								<p:column headerText="#{txtUser.expirationDate}">
+									<h:outputText value="#{roleUser.expirationDate}">
+								</h:outputText>
+								</p:column>
+								<p:column headerText="#{txtMain.option}">
+									<div class="btn-group">
+										<p:commandButton styleClass="btn btn-warning btn-sm" value="#{txtMain.edit}" 
+															action="#{userRoleBB.editRoleUser(roleUser)}" 
+		                            						update="@form"/>
+									</div>
+									<div class="btn-group">
+										<p:commandButton styleClass="btn btn-danger btn-sm" value="#{txtMain.delete}" 
+															action="#{userRoleBB.deleteRoleUser(roleUser)}"
+		                            						update="@form"/>
+									</div>
+								</p:column>
+							</p:dataTable>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</div>
+	</ui:define>
+	
+	
+
+</ui:composition>
+</html>

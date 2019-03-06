@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="/templates/base.xhtml">
+
+	<ui:define name="title">
+		#{txtGroup.group} - <h:outputText value="#{groupDetailsBB.category}"/> 
+	</ui:define>
+	
+	<ui:define name="content">
+		<div class="row">
+		<div class="col-lg-12">
+			<p:messages id="messages" showDetail="true" closable="true">
+        		<p:autoUpdate />
+    		</p:messages>
+
+            <div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						#{txtGroup.group} - <h:outputText value="#{groupDetailsBB.category}"/> 
+					</h3> 
+				</div>    
+				<div class="panel-body">
+					<div class="panel panel-green">
+					    <div class="panel-heading" role="tab" id="headingDetails">
+					      <h5 class="panel-title">
+					        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+					          #{txtMain.details} - <h:outputText value="#{groupDetailsBB.category}" />
+					        </a>
+					      </h5>
+					    </div>
+					    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingDetails">
+					      <div class="panel-body">
+					      	<div class="row">
+					      		<h:form>
+									<div class="col-lg-5">
+											<div class="form-group">
+												<h:outputLabel for="category">#{txtGroup.category}</h:outputLabel>
+												<h:inputText 
+													value="#{groupDetailsBB.category}"
+													disabled="true"
+									      			class = "form-control"
+									      			id="category">
+												</h:inputText>
+											</div>
+											<div class="form-group">
+												<h:outputLabel for="groupDescription">#{txtMain.description}</h:outputLabel>
+												<h:inputTextarea 
+													value="#{groupDetailsBB.description}"
+													disabled="true"
+													class="form-control"
+													rows="5"
+									      			id="groupDescription">
+												</h:inputTextarea>
+											</div>
+									</div>
+								</h:form>
+		                    </div>
+					      </div>
+					    </div>
+					 </div>
+					 <div class="panel panel-red">
+					    <div class="panel-heading" role="tab" id="invObjectGroup">
+					      <h4 class="panel-title">
+					        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+					          #{txtInvObject.invObjects} - <h:outputText value="#{groupDetailsBB.category}" />
+					        </a>
+					      </h4>
+					    </div>
+					    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="invObjectGroup">
+					      <div class="panel-body">
+								<h:form id="form-table-invObjectGroup">
+			                        <p:dataTable  var="invObject"  value="#{groupDetailsBB.invObjectGroup}" rows="5"
+			                        			tableStyle="table-layout: auto;"
+		                        				paginator="true" rowsPerPageTemplate="5,10,15"
+												lazy="true"
+												paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+									<f:facet name="header">
+										<p:outputPanel>
+											<p:inputText value="#{groupDetailsBB.nameInvObject}"
+												placeholder="#{txtInvObject.nameInvObject}" />
+											<p:commandButton value="#{txtMain.search}" styleClass="btn btn-primary"
+												update="form-table-invObjectGroup" />
+											<p:commandButton value="#{txtMain.active}" action="#{groupDetailsBB.displayUnarchive()}"
+														 rendered="#{groupDetailsBB.archive}"
+						            					 styleClass = "btn btn-primary left-button" update="form-table-invObjectGroup"/>
+						                	<p:commandButton value="#{txtMain.inactive}" action="#{groupDetailsBB.displayArchive()}" 
+						                				rendered="#{!groupDetailsBB.archive}"
+						                				styleClass = "btn btn-primary left-button" update="form-table-invObjectGroup"/>
+										</p:outputPanel>
+									</f:facet>
+									<p:column headerText="#{txtInvObject.name}">
+										<h:outputText value="#{invObject.name}"/>
+									</p:column>
+									<p:column headerText="#{txtInvObject.serialNo}">
+										<h:outputText value="#{invObject.serialNo}"/>
+									</p:column>
+									<p:column headerText="#{txtInvObject.room}">
+										<h:outputText value="#{invObject.room.number}"/>
+									</p:column>
+									<p:column headerText="Status">
+										<h:outputText value="#{txtMain.inactive}" rendered="#{invObject.archive}"/>
+										<h:outputText value="#{txtMain.active}" rendered="#{!invObject.archive}"/>
+									</p:column>
+		 							<p:column headerText="#{txtMain.option}">
+										<div class="btn-group">
+										<p:commandButton styleClass="btn btn-primary btn-sm" value="#{txtMain.details}" 
+															action="#{invObjectListBB.detailsInvObject(invObject)}" 
+			                           						update="@form"/>
+										</div>
+										</p:column>
+									</p:dataTable>
+								</h:form>
+					      </div>
+					    </div>
+					 </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</ui:define>
+</ui:composition>
+</html>

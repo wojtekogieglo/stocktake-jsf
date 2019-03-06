@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="/templates/base.xhtml">
+
+	<ui:define name="title">
+		#{txtUser.role} 
+	</ui:define>
+
+	<ui:define name="content">
+		<div class="row">
+		<div class="col-lg-12">
+			<p:messages id="messages" showDetail="true" closable="true">
+        		<p:autoUpdate />
+    		</p:messages>
+
+            <div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						#{txtUser.roleList}
+					</h3> 
+				</div>
+                        
+				<div class="panel-body">
+					<div class="table-responsive">
+					<h:form id="form-table">
+                        <p:dataTable var="role" value="#{roleListBB.list}" rows="5"
+                        				tableStyle="table-layout: auto;"
+										paginator="true" rowsPerPageTemplate="5,10,15"
+										paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+								<f:facet name="header">
+						            <p:outputPanel>
+						                <p:inputText value="#{roleListBB.roleName}" placeholder="#{txtUser.roleName}" />
+						                <p:commandButton value="#{txtMain.search}" styleClass = "btn btn-primary" update="form-table"/>
+						            </p:outputPanel>
+						        </f:facet>
+								<p:column headerText="#{txtUser.roleName}" >
+									<h:outputText value="#{role.roleName}">
+								</h:outputText>
+								</p:column>
+								<p:column headerText="#{txtMain.option}">
+									<div class="btn-group">
+										<p:commandButton styleClass="btn btn-warning btn-sm" value="#{txtMain.option}" 
+															action="#{roleListBB.editRole(role)}" 
+		                            						update="@form"/>
+									</div>
+									<div class="btn-group">
+										<p:commandButton styleClass="btn btn-danger btn-sm" value="#{txtMain.delete}" 
+															action="#{roleListBB.deleteRole(role)}" 
+		                            						update="@form"/>
+									</div>
+								</p:column>
+							</p:dataTable>
+                        </h:form>
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</ui:define>
+	
+	
+
+</ui:composition>
+</html>

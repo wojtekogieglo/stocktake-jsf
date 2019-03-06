@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition template="/templates/base.xhtml">
+
+	<ui:define name="title">
+		<h:outputText value="#{departmentDetailsBB.nameDepartment}" />
+	</ui:define>
+	
+	<ui:define name="content">
+		<div class="row">
+		<div class="col-lg-12">
+			<p:messages id="messages" showDetail="true" closable="true">
+        		<p:autoUpdate />
+    		</p:messages>
+
+            <div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<h:outputText value="#{departmentDetailsBB.nameDepartment}" />
+					</h3> 
+				</div>    
+				<div class="panel-body">
+					<div class="panel panel-green">
+					    <div class="panel-heading" role="tab" id="headingDetails">
+					      <h5 class="panel-title">
+					        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+					          #{txtMain.details} - <h:outputText value="#{departmentDetailsBB.nameDepartment}" />
+					        </a>
+					      </h5>
+					    </div>
+					    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingDetails">
+					      <div class="panel-body">
+					      	<div class="row">
+					      		<h:form>
+									<div class="col-lg-6">
+											<div class="form-group">
+												<h:outputLabel for="departmentName">#{txtDepartment.departmentName}</h:outputLabel>
+												<h:inputText 
+													value="#{departmentDetailsBB.nameDepartment}"
+													disabled="true"
+									      			class = "form-control"
+									      			id="departmentName">
+												</h:inputText>
+											</div>
+											<div class="form-group">
+												<h:outputLabel for="surname">#{txtInstitution.name}</h:outputLabel>
+												<h:inputText 
+													value="#{departmentDetailsBB.institutionNameDepartment}"
+									   				disabled="true"
+									      			class = "form-control"
+									      			id="surname">
+												</h:inputText>
+											</div>
+									</div>
+								</h:form>
+		                    </div>
+					      </div>
+					    </div>
+					 </div>
+					 <div class="panel panel-red">
+					    <div class="panel-heading" role="tab" id="roomDepartment">
+					      <h4 class="panel-title">
+					        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+					          #{txtDepartment.rooms} - <h:outputText value="#{departmentDetailsBB.nameDepartment}" />
+					        </a>
+					      </h4>
+					    </div>
+					    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="roomDepartment">
+					      <div class="panel-body">
+								<h:form id="form-table-room">
+			                        <p:dataTable  var="room"  value="#{departmentDetailsBB.roomsDepartment}" rows="5"
+			                        			tableStyle="table-layout: auto;"
+		                        				paginator="true" rowsPerPageTemplate="5,10,15"
+												lazy="true"
+												paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+									<f:facet name="header">
+										<p:outputPanel>
+											<p:inputText value="#{departmentDetailsBB.roomNumber}"
+												placeholder="#{txtRoom.roomNumber}" />
+											<p:commandButton value="#{txtMain.search}" styleClass="btn btn-primary"
+												update="form-table-room" />
+											<p:commandButton value="#{txtMain.active}" action="#{departmentDetailsBB.displayUnarchive()}" 
+														 rendered="#{departmentDetailsBB.archive}"
+						            					 styleClass = "btn btn-primary left-button" update="form-table-room"/>
+						                	<p:commandButton value="#{txtMain.inactive}" action="#{departmentDetailsBB.displayArchive()}"
+						                				rendered="#{!departmentDetailsBB.archive}" 
+						                				styleClass = "btn btn-primary left-button" update="form-table-room"/>
+										</p:outputPanel>
+									</f:facet>
+									<p:column headerText="#{txtRoom.roomNumber}">
+										<h:outputText value="#{room.number}"/>
+									</p:column>
+									<p:column headerText="#{txtRoom.floor}">
+										<h:outputText value="#{room.floor}"/>
+									</p:column>
+									<p:column headerText="Status">
+										<h:outputText value="#{txtMain.inactive}" rendered="#{room.archive}"/>
+										<h:outputText value="#{txtMain.active}" rendered="#{!room.archive}"/>
+									</p:column>
+		 							<p:column headerText="#{txtMain.option}">
+										<div class="btn-group">
+										<p:commandButton styleClass="btn btn-primary btn-sm" value="#{txtMain.details}" 
+															action="#{roomListBB.detailsRoom(room)}" 
+			                           						update="@form"/>
+										</div>
+										</p:column>
+									</p:dataTable>
+								</h:form>
+					      </div>
+					    </div>
+					 </div>
+					 <div class="panel panel-yellow">
+					    <div class="panel-heading" role="tab" id="personResponsibleDepartment">
+					      <h4 class="panel-title">
+					        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+					          #{txtDepartment.personResponsible} -  <h:outputText value="#{departmentDetailsBB.nameDepartment}" />
+					        </a>
+					      </h4>
+					    </div>
+					    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="personResponsibleDepartment">
+					      <div class="panel-body">
+								<h:form id="form-table-personResponsible">
+			                        <p:dataTable  var="personResponsible"  value="#{departmentDetailsBB.personDepartment}" rows="5"
+			                        			tableStyle="table-layout: auto;"
+		                        				paginator="true" rowsPerPageTemplate="5,10,15"
+												lazy="true"
+												paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+									<f:facet name="header">
+										<p:outputPanel>
+											<p:inputText value="#{departmentDetailsBB.surname}"
+												placeholder="#{txtUser.surname}" />
+											<p:commandButton value="#{txtMain.search}" styleClass="btn btn-primary"
+												update="form-table-personResponsible" />
+											<p:commandButton value="#{txtMain.active}" action="#{departmentDetailsBB.displayUnarchive()}"
+														rendered="#{departmentDetailsBB.archive}" 
+						            					 styleClass = "btn btn-primary left-button" update="form-table-personResponsible"/>
+						                	<p:commandButton value="#{txtMain.inactive}" action="#{departmentDetailsBB.displayArchive()}" 
+						                				rendered="#{!departmentDetailsBB.archive}"
+						                				styleClass = "btn btn-primary left-button" update="form-table-personResponsible"/>
+										</p:outputPanel>
+									</f:facet>
+									<p:column headerText="#{txtUser.name}">
+										<h:outputText value="#{personResponsible.name}"/>
+									</p:column>
+									<p:column headerText="#{txtUser.surname}">
+										<h:outputText value="#{personResponsible.surname}"/>
+									</p:column>
+									<p:column headerText="Status">
+										<h:outputText value="#{txtMain.inactive}" rendered="#{personResponsible.archive}"/>
+										<h:outputText value="#{txtMain.active}" rendered="#{!personResponsible.archive}"/>
+									</p:column>
+		 							<p:column headerText="#{txtMain.option}">
+										<div class="btn-group">
+											<p:commandButton styleClass="btn btn-primary btn-sm" value="#{txtMain.details}" 
+																action="#{personListBB.detailsPerson(personResponsible)}" 
+			                            						update="@form"/>
+										</div>
+										</p:column>
+									</p:dataTable>
+								</h:form>
+					      </div>
+					    </div>
+					 </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</ui:define>
+	
+	
+
+</ui:composition>
+</html>

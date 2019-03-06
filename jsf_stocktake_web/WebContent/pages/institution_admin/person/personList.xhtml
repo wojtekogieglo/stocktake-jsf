@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="/templates/base.xhtml">
+
+	<ui:define name="title">
+		#{txtDepartment.personResponsible}
+	</ui:define>
+	
+	<ui:define name="content">
+		<div class="row">
+		<div class="col-lg-12">
+			<p:messages id="messages" showDetail="true" closable="true">
+        		<p:autoUpdate />
+    		</p:messages>
+
+            <div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						#{txtPersonResponsible.personResponsibleList} - <h:outputText value="#{remoteClient.details.institution.nameInstitution}" />
+					</h3>           
+				</div>
+                        
+				<div class="panel-body">
+					<h:form id="form-table">
+                        <p:dataTable value="#{personListBB.personResponsible}" var="person" rows="5"
+                        				paginator="true" rowsPerPageTemplate="5,10,15"
+                        				tableStyle="table-layout: auto;"
+										lazy="true"
+										paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+								<f:facet name="header">
+						            <p:outputPanel>
+						                <p:inputText value="#{personListBB.surname}" placeholder="#{txtUser.surname}" />
+						                <p:commandButton value="#{txtMain.search}" styleClass = "btn btn-primary" update="form-table"/>
+						                <p:commandButton value="#{txtMain.active}" action="#{personListBB.displayUnarchive()}" 
+						                				 rendered="#{personListBB.archive}"
+						            					 styleClass = "btn btn-primary left-button" update="form-table"/>
+						                <p:commandButton value="#{txtMain.inactive}" action="#{personListBB.displayArchive()}" 
+						                				rendered="#{!personListBB.archive}"
+						                				styleClass = "btn btn-primary left-button" update="form-table"/>
+						            </p:outputPanel>
+						        </f:facet>
+						        <p:column headerText="#{txtUser.name}">
+									<h:outputText value="#{person.name}"/>
+								</p:column>
+						        <p:column headerText="#{txtUser.surname}">
+									<h:outputText value="#{person.surname}"/>
+								</p:column>
+						        <p:column headerText="Status">
+									<h:outputText value="#{txtMain.inactive}" rendered="#{person.archive}"/>
+									<h:outputText value="#{txtMain.active}" rendered="#{!person.archive}"/>
+								</p:column>
+						        <p:column headerText="#{txtMain.option}">
+									<div class="btn-group">
+									<p:commandButton styleClass="btn btn-primary btn-sm" value="#{txtMain.details}" 
+														action="#{personListBB.detailsPerson(person)}" 
+	                            						update="@form"/>
+									</div>
+									<div class="btn-group">
+									<p:commandButton styleClass="btn btn-warning btn-sm" value="#{txtMain.edit}" 
+														action="#{personListBB.editPerson(person)}" 
+	                            						update="@form">
+										<f:setPropertyActionListener target="#{personListBB.institution}" value="#{remoteClient.details.institution}" />	                            						
+	                            	</p:commandButton>
+									</div>
+									<div class="btn-group">
+										<p:commandButton styleClass="btn btn-danger btn-sm" value="#{txtMain.doInactive}" 
+		                            						action="#{personListBB.archivePersonResponsible(person)}"
+		                            						rendered="#{!person.archive}"
+		                            						update="@form"/>
+										<p:commandButton styleClass="btn btn-danger btn-sm" value="#{txtMain.doActive}" 
+															action="#{personListBB.unarchivePersonResponsible(person)}"
+															rendered="#{person.archive}" 
+		                            						update="@form"/>
+									</div>
+								</p:column>
+                        </p:dataTable>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	</ui:define>
+
+	
+	
+
+</ui:composition>
+</html>
